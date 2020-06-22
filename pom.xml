@@ -5,23 +5,52 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>switchpipe</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
-
 	<parent>
 		<groupId>farsight-wm</groupId>
-		<artifactId>parent</artifactId>
+		<artifactId>wm-parent</artifactId>
 		<version>10.5.0</version>
-		<relativePath>../parent/pom.xml</relativePath>
+		<relativePath>../wm-parent/pom.xml</relativePath>
 	</parent>
+	<artifactId>switchpipe</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
 
 	<name>farsight-wm-switchpipe</name>
+	<description>Save and restore pipelines easily for development and maintenance purposes</description>
+	<url>https://github.com/farsight-wm/switchpipe</url>
+
+	<issueManagement>
+		<url>https://github.com/farsight-wm/switchpipe/issues</url>
+		<system>GitHub.com</system>
+	</issueManagement>
+	
+	<scm>
+		<url>https://github.com/farsight-wm/switchpipe</url>
+		<connection>scm:git:https://github.com/farsight-wm/switchpipe.git</connection>
+		<developerConnection>scm:git:https://github.com/farsight-wm/switchpipe.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
+
+	<licenses>
+		<license>
+			<name>The MIT License (MIT)</name>
+			<url>https://opensource.org/licenses/MIT</url>
+			<distribution>manual</distribution>
+		</license>
+	</licenses>
+	
+	<developers>
+		<developer>
+			<name>Cornelius Wicke</name>
+			<url>https://www.xing.com/profile/Cornelius_Wicke</url>
+		</developer>
+	</developers>
 
 	<dependencies>
 		<dependency>
 			<groupId>farsight-wm</groupId>
 			<artifactId>utils</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>1.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.softwareag.webmethods</groupId>
@@ -63,7 +92,6 @@
 			<plugin>
 				<groupId>farsight-wm</groupId>
 				<artifactId>is-package-maven-plugin</artifactId>
-				<version>1.0.0</version>
 				<executions>
 					<execution>
 						<goals>
