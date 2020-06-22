@@ -29,23 +29,6 @@ import farsight.utils.idata.DataBuilder;
 import farsight.utils.idata.ListBuilder;
 import farsight.utils.properties.AdvancedProperties;
 
-
-/*
- * 
- * TODO next steps
- * 
- * Dump Configuration
- * 
- * Testing / Debugging / Improvements / Commenting
- * 
- * NextProject: Configurable stand alone Archiver for pipelines
- * 
- * 
- * Issues
- * Activation CONDITNAL -> OFF ?!
- * NsHintPolicy persistent not working
- * 
- */
 public class SwitchpipeAPI {
 	
 	public static String[] CONFIG_LOCATIONS = new String[] {
@@ -71,9 +54,7 @@ public class SwitchpipeAPI {
 	private String[] configLocations = null;
 	private Switchpipe switchpipe = null;
 	
-	private final LogFacade LOGGER = ServerLogBackend.createFor("switchpipe3");
-	
-	// constructor
+	private final LogFacade LOGGER = ServerLogBackend.createFor("switchpipe");
 	
 	public SwitchpipeAPI() {
 		this(CONFIG_LOCATIONS);
@@ -88,7 +69,6 @@ public class SwitchpipeAPI {
 	}
 	
 	// (re)initialize
-	
 	public void initialize() {
 		if(switchpipe != null || configLocations == null)
 			return;
@@ -102,11 +82,18 @@ public class SwitchpipeAPI {
 			if(Files.exists(path) && Files.isReadable(path)) {
 				try {
 					reconfigure(path);
-					break;
+					return;
 				} catch(SwitchpipeConfigurationException e) {
 					//ignore and try next
 				}
 			}
+		}
+		
+		try {
+			LOGGER.logInfo("No valid config file found - using default configuration");
+			reconfigure(SwitchpipeConfiguration.defaultConfiguration());
+		} catch(SwitchpipeConfigurationException e) {
+			LOGGER.logError("Cannot use default configuration: " + e.getMessage());
 		}
 	}
 	
@@ -327,6 +314,5 @@ public class SwitchpipeAPI {
 			throw new ServiceException(e);
 		}	
 	}
-
 
 }

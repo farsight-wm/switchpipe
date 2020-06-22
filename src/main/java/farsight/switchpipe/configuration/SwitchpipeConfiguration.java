@@ -9,6 +9,7 @@ import farsight.switchpipe.Switchpipe.StoreHolder;
 import farsight.switchpipe.activation.ActivationPolicy;
 import farsight.switchpipe.activation.ActivationStrategy;
 import farsight.switchpipe.activation.NsHintPolicy;
+import farsight.switchpipe.datastore.FileDataStore;
 import farsight.switchpipe.exception.SwitchpipeConfigurationException;
 import farsight.switchpipe.pipelinecodec.DefaultPipelineCodec;
 import farsight.switchpipe.pipelinecodec.PipelineCodec;
@@ -235,5 +236,18 @@ public class SwitchpipeConfiguration {
 		if(pipelineCodecClass == null)
 			return null;
 		return className(pipelineCodecClass, PipelineCodec.class);
+	}
+	
+	public static SwitchpipeConfiguration defaultConfiguration() throws SwitchpipeConfigurationException {
+		HashMap<String, String> pipelineCodecParams = new HashMap<String, String>();
+		pipelineCodecParams.put("maxSize", "2m"); //max file size 2 MB
+		return builder()
+				.setDefaults(SourceConfiguration.builder().setDefaults(true).build())
+				.setDefaultStoreID("pipeline")
+				.addSource(SourceConfiguration.builder()
+						.setId("pipeline")
+						.setSourceClass(FileDataStore.class.getCanonicalName()))
+				.setPipelineCodecParams(pipelineCodecParams)
+				.build();
 	}
 }
