@@ -7,7 +7,7 @@ title: Configuration
 {:toc}
 
 # Configuration
-If you want more control of the behavior of switchpipe, you can create a configration file in the config-directory of the current instance (e.g. `.../IntegrationServer/instances/default/configuration/switchpipe.conf`).
+If you want more control of the behavior of switchpipe, you can create a configration file in the config-directory of the current instance (e.g. `../IntegrationServer/instances/default/configuration/switchpipe.conf`).
 The format is like java properties files: `some.key = some value`
 Comments may be used and must start at every line with a `#`-sign.
 The following keys are supported:
@@ -47,10 +47,35 @@ The following keys are used for stores/sources (or the defaults)
 
 Currently the possible values for class parameter of a store are:
  * `FileDataStore`
- Writeable data store.
  * `FileDataSource`
- Readonly data source.
  * `ZipDataSource`
- Readonly data source that reads zip files. (Needs custom arguments //TODO)
 
-You may implement your own class and set a fully qualified class name instead.
+You may implement your own store and set a fully qualified class name instead (see: [Extending switchpipe](extending.md#custom-sources-and-stores))
+
+
+# Example Configuration
+
+```
+pipelineCodec.class = DefaultPipelineCodec
+pipelineCodec.class.maxSize = 2m
+
+#defaults
+store.defaults.base = Z:/pipeline
+store.defaults.class = FileDataSource
+store.defaults.timestampPattern = yyMMdd-HHmmssSSS
+store.defaultStore = pipeline
+
+#stores
+stores.pipeline.class = FileDataStore
+stores.pipeline.fallback = archive
+
+stores.archive.class = ZipDataSource
+stores.archive.pattern = ${invokeID}.xml
+stores.archive.class.zipPattern = ${serviceID}/Archive/${zipTimestamp}.zip
+stores.archive.class.zipTimestamp = YYYY-MM
+
+stores.test.base = \\netstore\test\pipeline
+
+stores.production.base = \\netstore\production\pipeline
+
+```
