@@ -11,13 +11,6 @@ Currently tested only with webMethods IntegrationServer 10.5
 ## Installation
 Copy the zipped IS package (see releases) to your IS replicate/inbound directory and install it via the admin UI.
 
-## Configuration
-Default configuration stores/reads pipeline data in the pipeline directory of your instance.
-
-You can create a switchpipe.conf file in the config directory if your instance.
-
-**TODO:** config examples/documentation
-
 ## Usage
 The most important service is *farsightwm.switchpipe.flow:switchpipe*. It can be used at the beginning of a service to automatically store the service inputs.
 It will generate a xml-encoded pipeline file in the defined output directory (default is IS/instances/CURRENT-INSTANCE/pipelines).
@@ -27,3 +20,6 @@ Thus you can easily debug service with multiple inputs. If you collect pipeline 
 
 Other service may be used to explicitly save or restore pipeline data or only the content of a document in the pipeline.
 
+## Configuration
+
+See documentation at [github.io](https://farsight-wm.github.io/switchpipe/).
