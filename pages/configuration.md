@@ -74,8 +74,8 @@ stores.archive.pattern = ${invokeID}.xml
 stores.archive.class.zipPattern = ${serviceID}/Archive/${zipTimestamp}.zip
 stores.archive.class.zipTimestamp = YYYY-MM
 
-stores.test.base = \\netstore\test\pipeline
+stores.test.base = //netstore/test/pipeline
 
-stores.production.base = \\netstore\production\pipeline
+stores.production.base = //netstore/production/pipeline
 
 ```
